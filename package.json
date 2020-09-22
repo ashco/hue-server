@@ -1,0 +1,19 @@
+{
+  "name": "31-hue-randomizer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "AshCo (https://ashco.io)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "node-hue-api": "^4.0.9"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
