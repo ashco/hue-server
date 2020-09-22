@@ -29,8 +29,9 @@ const USERNAME = process.env.USERNAME;
 
 app.post("/randomize", async (req, res, next) => {
   try {
-    const { username, lights, group, lightGroups } = req.body;
-    // console.log(JSON.stringify(req.body));
+    const { username, type } = req.body;
+    const data = JSON.parse(req.body.data);
+
     v3.discovery
       // connect to bridge
       .nupnpSearch()
@@ -40,8 +41,8 @@ app.post("/randomize", async (req, res, next) => {
       })
       .then((api) => {
         // Using a LightState object to build the desired state
-        if (lights) {
-          lights.split(",").forEach((light) => {
+        if (type === "LIGHTS") {
+          data.forEach((light) => {
             const state = new LightState()
               .on()
               .brightness(100)
@@ -50,28 +51,42 @@ app.post("/randomize", async (req, res, next) => {
 
             api.lights.setLightState(parseInt(light), state);
           });
-        } else if (group) {
-          console.log(group);
-        } else if (lightGroups) {
-          console.log(lightGroups);
+        } else if (type === "LIGHT_GROUPS") {
         }
-
-        // const sideState = new LightState()
-        //   .on()
-        //   .brightness(100)
-        //   .saturation(100)
-        //   .hue(genRandomHue())
-        //   .alertShort();
-        // const centerState = new LightState()
-        //   .on()
-        //   .brightness(100)
-        //   .saturation(100)
-        //   .hue(genRandomHue())
-        //   .alertShort();
-        // api.lights.setLightState(8, sideState);
-        // api.lights.setLightState(9, sideState);
-        // return api.lights.setLightState(11, centerState);
       });
+
+    // if (lights) {
+    //   lights.split(",").forEach((light) => {
+    //     const state = new LightState()
+    //       .on()
+    //       .brightness(100)
+    //       .saturation(100)
+    //       .hue(genRandomHue());
+
+    //     api.lights.setLightState(parseInt(light), state);
+    //   });
+    // } else if (group) {
+    //   console.log(group);
+    // } else if (lightGroups) {
+    //   console.log(lightGroups);
+    // }
+
+    // const sideState = new LightState()
+    //   .on()
+    //   .brightness(100)
+    //   .saturation(100)
+    //   .hue(genRandomHue())
+    //   .alertShort();
+    // const centerState = new LightState()
+    //   .on()
+    //   .brightness(100)
+    //   .saturation(100)
+    //   .hue(genRandomHue())
+    //   .alertShort();
+    // api.lights.setLightState(8, sideState);
+    // api.lights.setLightState(9, sideState);
+    // return api.lights.setLightState(11, centerState);
+    // });
 
     res.status(200).send();
   } catch (err) {
