@@ -9,6 +9,8 @@ const { getHueApi } = require("./lib/getHueApi");
 const { randomizeLights } = require("./lib/randomizeLights");
 const { getSensorId } = require("./lib/getSensorId");
 
+require("./lib/cron");
+
 const app = express();
 
 // parse application/x-www-form-urlencoded
@@ -17,12 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const PORT = process.env.PORT || 9000;
-const LightState = v3.lightStates.LightState;
-
-const SENSOR_MAP = {
-  10: "LIVING ROOM",
-  // ??: 'BEDROOM'
-};
 
 app.post("/randomize", async (req, res, next) => {
   try {
@@ -50,24 +46,27 @@ app.get("/allSensors", async (req, res, next) => {
   }
 });
 
-// app.get("/sensor/:sensorId", async (req, res, next) => {
-//   try {
-//     const { sensorId } = req.params;
+app.get("/sensor/:sensorId", async (req, res, next) => {
+  try {
+    const { sensorId } = req.params;
 
-//     const api = await getHueApi();
-//     const { lastupdated, buttonevent } = await api.sensors.getSensor(sensorId);
+    const api = await getHueApi();
+    const { lastupdated, buttonevent } = await api.sensors.getSensor(sensorId);
 
-//     const dataObj = {
-//       sensorId,
-//       lastupdated,
-//       buttonevent,
-//     };
+    const dataObj = {
+      sensorId,
+      lastupdated,
+      buttonevent,
+    };
 
-//     res.status(200).send(JSON.stringify(dataObj));
-//   } catch (err) {
-//     res.status(500).send(err.message);
-//   }
-// });
+    res
+      .status(200)
+      .send(await (await api.sensors.getSensor(sensorId)).toStringDetailed());
+    // res.status(200).send(JSON.stringify(dataObj));
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
 
 // app.get("/allRules", async (req, res, next) => {
 //   try {
