@@ -16,12 +16,10 @@ app.use(bodyParser.json());
 const LightState = v3.lightStates.LightState;
 
 const PORT = process.env.PORT || 9000;
-const USERNAME = process.env.USERNAME;
 
 app.post("/randomize", async (req, res, next) => {
   try {
-    const { username, type } = req.body;
-    const data = JSON.parse(req.body.data);
+    const { username, data } = req.body;
 
     v3.discovery
       // connect to bridge
@@ -32,7 +30,7 @@ app.post("/randomize", async (req, res, next) => {
       })
       .then((api) => {
         // Using a LightState object to build the desired state
-        data.forEach((lightGroup) => {
+        JSON.parse(data).forEach((lightGroup) => {
           const state = new LightState()
             .on()
             .brightness(100)
@@ -42,13 +40,22 @@ app.post("/randomize", async (req, res, next) => {
           if (typeof lightGroup === "number") lightGroup = [lightGroup];
 
           lightGroup.forEach((light) => {
-            console.log(lightGroup, light);
             api.lights.setLightState(parseInt(light), state);
           });
         });
       });
 
-    res.status(200).send();
+    res.status(200).send(`Lights have been randomized: ${data}`);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/saveLightState", async (req, res, next) => {
+  try {
+    // determine light group
+    // if group already has state arrangement, stop
+    // save new light state
   } catch (err) {
     res.status(500).send(err.message);
   }
