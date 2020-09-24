@@ -1,5 +1,9 @@
 ﻿# Hue Server
-This is a basic
+This project is an Node/Express server that allows you to randomize your Philips Hue lights. You can randomize via an API post request or by continuously polling the status of a physical remote.
+
+The creation and workings of this project has been documented through video. Check it out here:
+
+TODO: ADD VIDEO LINK
 
 ## Technologies
 - Node v10.16.0
