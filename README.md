@@ -1,12 +1,12 @@
 ﻿# Hue Server
-This project is an Node/Express server that allows you to randomize your Philips Hue lights. You can randomize via an API post request or by continuously polling the status of a physical remote.
+This project is a Node/Express server that allows you to randomize the Philips Hue lights on your network. You can randomize via an API post request or by continuously polling for a specific status on a physical remote.
 
 The creation and workings of this project has been documented through video. Check it out here:
 
-TODO: ADD VIDEO LINK
+https://youtu.be/mUMHbUPdDyo
 
 ## Technologies
-- Node v10.16.0
+- Node v12.18.4
 - Express
 - [node-hue-api](https://github.com/peter-murray/node-hue-api)
 - [node-cron](https://www.npmjs.com/package/node-cron)
@@ -17,7 +17,7 @@ The `.env` and `/lib/config.js` files will need to be configured to work with yo
 - `.env`
   - **USERNAME**: Required code used as authentication key when sending commands to Philips Hue Hub. A quick guide on how to generate this key can be found [here](https://developers.meethue.com/develop/get-started-2/).
   - **PORT**: Optional env variable. Defaults to 9000.
-  - **CRON**: Optional env variable: Lets you specify polling period for sensor status. You can see how to format this string [here](https://www.npmjs.com/package/node-cron). Defaults to run every 10 seconds.
+  - **POLL_TIME**: Optional env variable: Lets you specify polling period for sensor status. You can see how to format this string [here](https://www.npmjs.com/package/node-cron). Defaults to run every 5 seconds.
 
 - `lib/config.js` - Contains array of objects that contain room data. Data objects include the following:
   - name: Name of room.
