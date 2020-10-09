@@ -1,11 +1,7 @@
-﻿require("dotenv").config();
-
-const express = require("express");
-
+﻿const express = require("express");
 const bodyParser = require("body-parser");
 
 const { randomizeLights } = require("./lib/helpers");
-
 // enable cron job
 require("./lib/cron");
 
@@ -16,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-const PORT = process.env.PORT || 9000;
+const PORT = process.env.PORT || 3000;
 
 app.post("/randomize", async (req, res, next) => {
   try {

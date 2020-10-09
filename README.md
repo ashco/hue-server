@@ -15,7 +15,7 @@ https://youtu.be/mUMHbUPdDyo
 The `.env` and `/lib/config.js` files will need to be configured to work with your environment.
 
 - `.env`
-  - **USERNAME**: Required code used as authentication key when sending commands to Philips Hue Hub. A quick guide on how to generate this key can be found [here](https://developers.meethue.com/develop/get-started-2/).
+  - **USER_ID**: Required code used as authentication key when sending commands to Philips Hue Hub. A quick guide on how to generate this key can be found [here](https://developers.meethue.com/develop/get-started-2/).
   - **PORT**: Optional env variable. Defaults to 9000.
   - **POLL_TIME**: Optional env variable: Lets you specify polling period for sensor status. You can see how to format this string [here](https://www.npmjs.com/package/node-cron). Defaults to run every 5 seconds.
 

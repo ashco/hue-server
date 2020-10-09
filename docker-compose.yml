@@ -1,7 +1,8 @@
 ﻿version: '3'
 services:
-  web:
+  app:
     build: .
+    env_file: .env
     ports:
-      - "5525:9000"
+      - "8031:3000"
 
