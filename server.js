@@ -1,4 +1,6 @@
-﻿const express = require("express");
+﻿require("dotenv").config();
+
+const express = require("express");
 const bodyParser = require("body-parser");
 
 const { randomizeLights } = require("./lib/helpers");
@@ -6,7 +8,6 @@ const { randomizeLights } = require("./lib/helpers");
 require("./lib/cron");
 
 const app = express();
-
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
